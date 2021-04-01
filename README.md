@@ -26,7 +26,7 @@ The `Result` Object can be described as:
 ```
 
 ## docker-compose.yml
-To initalise the environment run: `docker-compose run app` after which you
+To initalise the environment run: `docker-compose up` after which you
 should be able to interact with the API via `http://localhost:3000`
 
 If you do not want to use the provided docker-compose environment, running `node
