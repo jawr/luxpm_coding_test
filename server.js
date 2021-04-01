@@ -48,7 +48,6 @@ const insertResults = async (results) => {
 // create routes and start express api
 const startServer = () => {
   const app = express()
-  const port = 3000
 
   // return all results
   app.get('/results', async (req, res) => {
@@ -58,7 +57,7 @@ const startServer = () => {
 
   // start the server
   app.listen(listenPort, listenAddr, () => {
-      console.log(`listening at http://${listenAddr}:${port}`)
+      console.log(`listening at http://${listenAddr}:${listenPort}`)
   })
 }
 
