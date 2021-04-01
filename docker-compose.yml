@@ -1,0 +1,32 @@
+version: '3'
+networks:
+  luxpm:
+    driver: bridge
+services:
+  db:
+    image: mysql:latest
+    networks:
+      - luxpm
+    environment:
+      MYSQL_DATABASE: 'lawrence'
+      MYSQL_USER: 'mysql_user'
+      MYSQL_PASSWORD: 'mysql_pass'
+      MYSQL_ROOT_PASSWORD: 'pass_in_a_env_file_instead'
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
+  app:
+    build:
+      context: .
+    networks:
+      - luxpm
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - 3000:3000
+    environment:
+      LISTEN_ADDR: 0.0.0.0
+      LISTEN_PORT: 3000
+      MYSQL_URI: mysql://mysql_user:mysql_pass@db:3306/lawrence
